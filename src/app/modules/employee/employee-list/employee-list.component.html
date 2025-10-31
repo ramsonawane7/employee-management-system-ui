@@ -1,0 +1,118 @@
+<div class="card-modern p-4 mb-4 d-flex flex-column align-items-start animate__animated animate__fadeIn">
+  <h1 class="heading-dark mb-2"><i class="bi bi-people-fill me-3"></i>Employees</h1>
+  <div class="heading-subtle mb-2">Add, edit, or remove employees.</div>
+  <button class="btn-main mb-2 animate__animated animate__pulse" (click)="openAdd()">
+    <i class="bi bi-plus-lg me-2"></i>Add New Employee
+  </button>
+</div>
+
+<div *ngIf="alertMsg" class="alert" [ngClass]="{'alert-success': alertType==='success', 'alert-danger': alertType==='danger'}">{{ alertMsg }}</div>
+
+<div class="table-responsive mb-4">
+  <table class="table table-hover table-striped table-bordered align-middle shadow-sm rounded">
+    <thead class="bg-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Contact Number</th>
+        <th style="width:180px">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="align-middle">
+      <tr *ngFor="let e of employees">
+        <td>{{ e.empId }}</td>
+        <td>{{ e.firstName }} {{ e.lastName }}</td>
+        <td>{{ e.email }}</td>
+        <td>{{ getDeptNameById(e.deptId) }}</td>
+        <td>{{ getDesigNameById(e.desigId) }}</td>
+        <td>{{ e.phone || '-' }}</td>
+        <td>
+          <button class="btn btn-outline-info btn-sm rounded-pill me-1 px-3" (click)="openEdit(e)">
+            <i class="bi bi-pencil me-1"></i>Edit
+          </button>
+          <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="confirmDelete(e)">
+            <i class="bi bi-trash me-1"></i>Delete
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="employees.length === 0">
+        <td colspan="7"><div class="alert alert-warning mb-0">No employees found.</div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade show animated fadeIn border-0 shadow rounded" tabindex="-1" style="display: block; background:rgba(0,0,0,0.19)" *ngIf="modalOpen">
+  <div class="modal-dialog">
+    <div class="modal-content border-0 rounded shadow-lg">
+      <form (submit)="$event.preventDefault(); saveEmployee();">
+        <div class="modal-header bg-primary text-white border-0 rounded-top">
+          <h5 class="modal-title">{{ isEdit ? 'Edit Employee' : 'Add Employee' }}</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="resetForm()"></button>
+        </div>
+        <div class="modal-body pt-4">
+          <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input class="form-control" [(ngModel)]="currentEmployee.firstName" name="firstName" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input class="form-control" [(ngModel)]="currentEmployee.lastName" name="lastName" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" [(ngModel)]="currentEmployee.email" name="email" required type="email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Department</label>
+            <select class="form-select" [(ngModel)]="currentEmployee.deptId" name="deptId" required>
+              <option [ngValue]="undefined" disabled>Select department</option>
+              <option *ngFor="let d of departments" [ngValue]="d.deptId">{{ d.deptName }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Designation</label>
+            <select class="form-select" [(ngModel)]="currentEmployee.desigId" name="desigId" required>
+              <option [ngValue]="undefined" disabled>Select designation</option>
+              <option *ngFor="let d of designations" [ngValue]="d.desigId">{{ d.desigName }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            <input class="form-control" [(ngModel)]="currentEmployee.phone" name="phone" type="number" min="0">
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="button" class="btn btn-outline-secondary w-50 rounded-pill" (click)="resetForm()">Cancel</button>
+          <button type="submit" class="btn btn-success w-50 rounded-pill">{{ isEdit ? 'Update' : 'Add' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade show" tabindex="-1" style="display: block; background:rgba(0,0,0,0.19)" *ngIf="deleteConfirmOpen">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded shadow-lg">
+      <div class="modal-header bg-danger text-white border-0 rounded-top">
+        <h5 class="modal-title"><i class="bi bi-trash me-2"></i>Confirm Delete</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="resetForm()"></button>
+      </div>
+      <div class="modal-body fs-5">
+        Are you sure you want to delete employee <strong>{{ deleteTarget?.firstName }} {{ deleteTarget?.lastName }}</strong>?
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-outline-secondary w-50 rounded-pill" (click)="resetForm()">Cancel</button>
+        <button class="btn btn-danger w-50 rounded-pill" (click)="deleteEmployee()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal backdrops to block interaction when modal shown -->
+<div class="modal-backdrop fade show" *ngIf="modalOpen || deleteConfirmOpen"></div>

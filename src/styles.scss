@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+// Teal/cyan modern SaaS gradient theme
+:root {
+  --main-gradient: linear-gradient(135deg,#1fa2a2,#0e7c86);
+  --primary: #0e7c86;
+  --accent: #1fa2a2;
+  --neutral: #f8fbfd;
+  --side-bg: #1fa2a2;
+  --side-hover: #0e7c86;
+  --text: #083b40;
+}
+body { background: #f6f5f4 !important; color: var(--text); }
+// Primary gradient on all CTA and major headers
+.btn-primary, .bg-primary {background: var(--main-gradient) !important; color: #fff !important; border:none;}
+.btn-accent:hover, .btn-primary:hover {filter: brightness(1.13);}
+.sidebar-teal {background: var(--main-gradient) !important; color:#fff;}
+.sidebar-logo {font-weight:bold; font-size:2rem;}
+.side-link {color: #fff !important; opacity:0.88;}
+.side-link.active,.side-link:hover {background:rgba(0,0,0,.08) !important; color:#f8fbfd!important;}
+.gradient-header {background: var(--main-gradient) !important; color:#fff; border-radius:12px; box-shadow:0 2px 14px 0 rgba(31,162,162,0.11)}
+.gradient-btn {background: var(--main-gradient) !important; color:#fff !important; border-radius:24px; border: none; padding:6px 32px; font-size:1.15rem; font-weight: 500;}
+.bg-tablehead {background: #0e7c86!important; color:#fff!important;}
+.table-hover>tbody>tr:hover {background: #b2e7ea!important}
+.table-striped>tbody>tr.bg-light:nth-of-type(even) {background-color: #e2f6f7!important}
+.card-modern { background: #fff !important; border: 1.5px solid #dff2f2 !important; border-radius: 18px !important; box-shadow: 0 4px 32px 0 rgba(31,162,162,0.05); }
+.card-header-modern { border:none; background:#fff!important; color:#163a3a; font-size:1.45rem; font-weight:700; letter-spacing:.2px; }
+.btn-main { background:#1fa2a2!important; color:#fff!important; border-radius:27px; border:none; font-weight:600; font-size:1.09rem; box-shadow:0 1px 5px 0 rgba(31,162,162,0.1) }
+.btn-main:hover { background:#0e7c86!important; }
+.btn-outline-main { border:1.5px solid #1fa2a2!important; background:#fff!important; color:#0e7c86!important; border-radius:27px; font-weight:600; }
+.heading-dark { color:#063b3b; font-weight:700; font-size:2.05rem; letter-spacing:0.1px; }

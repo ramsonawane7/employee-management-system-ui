@@ -1,0 +1,19 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4 shadow-sm" style="min-width:340px;max-width:380px;width:100%;">
+    <h2 class="mb-4 text-center">Employee Management System</h2>
+
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" id="username" class="form-control" placeholder="Enter username" [(ngModel)]="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Enter password" [(ngModel)]="password">
+    </div>
+    <button class="btn btn-primary w-100" (click)="login()">Login</button>
+
+    <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': message.toLowerCase().includes('success'), 'alert-danger': !message.toLowerCase().includes('success')}">
+      {{ message }}
+    </div>
+  </div>
+</div>
