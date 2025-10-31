@@ -37,6 +37,12 @@ export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
   departments: Department[] = [];
   designations: Designation[] = [];
+  // pagination & search state
+  page = 0;
+  size = 10;
+  totalItems = 0;
+  totalPages = 0;
+  keyword = '';
   modalOpen = false;
   deleteConfirmOpen = false;
   isEdit = false;
@@ -56,10 +62,45 @@ export class EmployeeListComponent implements OnInit {
     this.loadDesignations();
   }
   loadEmployees() {
-    this.empService.getAll().subscribe({
-      next: (data: any) => { this.employees = data; },
-      error: () => { this.alertMsg = 'Failed to load employees.'; this.alertType = 'danger'; }
-    });
+    const handler = (data: any) => {
+      // Support both array and Spring Page response
+      if (Array.isArray(data)) {
+        this.employees = data;
+        this.totalItems = data.length;
+        this.totalPages = 1;
+      } else {
+        this.employees = data.content ?? [];
+        this.totalItems = data.totalElements ?? this.employees.length;
+        this.totalPages = data.totalPages ?? 1;
+        this.page = (data.number ?? this.page);
+        this.size = (data.size ?? this.size);
+      }
+    };
+    const onError = () => { this.alertMsg = 'Failed to load employees.'; this.alertType = 'danger'; };
+    if (this.keyword && this.keyword.trim().length > 0) {
+      this.empService.search(this.keyword.trim(), this.page, this.size).subscribe({ next: handler, error: onError });
+    } else {
+      this.empService.getPaginated(this.page, this.size).subscribe({ next: handler, error: onError });
+    }
+  }
+  onPageChange(nextPage: number) {
+    if (nextPage < 0 || (this.totalPages > 0 && nextPage >= this.totalPages)) return;
+    this.page = nextPage;
+    this.loadEmployees();
+  }
+  onSizeChange(newSize: number) {
+    this.size = newSize;
+    this.page = 0;
+    this.loadEmployees();
+  }
+  onSearch() {
+    this.page = 0;
+    this.loadEmployees();
+  }
+  clearSearch() {
+    this.keyword = '';
+    this.page = 0;
+    this.loadEmployees();
   }
   loadDepartments() {
     this.deptService.getAll().subscribe({
