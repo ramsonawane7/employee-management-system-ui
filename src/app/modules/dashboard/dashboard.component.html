@@ -1,8 +1,30 @@
-<h2>Dashboard</h2>
+<div class="dashboard-wrapper">
+  <div class="dashboard-card">
+    <h2 class="brand-title">Employee Management System</h2>
+      <p class="welcome-text">
+        Your central workspace for managing employees, departments, and designations
+      </p>
+    <div class="dashboard-inner">
+      <div class="stats-section">
+        <div class="stat-card">
+          <h3>Employees</h3>
+          <p>0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Departments</h3>
+          <p>3</p>
+        </div>
+        <div class="stat-card">
+          <h3>Designations</h3>
+          <p>4</p>
+        </div>
+      </div>
 
-<nav>
-  <a mat-button routerLink="/employees">Employees</a>
-  <a mat-button routerLink="/departments">Departments</a>
-  <a mat-button routerLink="/designations">Designations</a>
-  <a mat-button routerLink="/login">Logout</a>
-</nav>
+      <div class="action-buttons">
+        <a routerLink="/employees" routerLinkActive="active" class="btn">Employee Management</a>
+        <a routerLink="/departments" routerLinkActive="active" class="btn">Department Management</a>
+        <a routerLink="/designations" routerLinkActive="active" class="btn">Designation Management</a>
+      </div>
+    </div>
+  </div>
+</div>

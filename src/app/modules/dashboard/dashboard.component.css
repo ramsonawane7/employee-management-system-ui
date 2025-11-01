@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ===== Layout ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #eaf6f6;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #eaf6f6;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Card ===== */
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  padding: 2.5rem 3rem;
+  width: 80%;
+  max-width: 950px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Text Styles ===== */
+.brand-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0a3d3f;
+  margin-bottom: 0.4rem;
+}
+
+.welcome-text {
+  font-size: 1rem;
+  color: #118a8c;
+  margin-bottom: 2.2rem;
+}
+
+/* ===== Stats Section ===== */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background-color: #dff7f7;
+  border-radius: 18px;
+  padding: 1.5rem 2rem;
+  flex: 1 1 200px;
+  text-align: center;
+  color: #045d5d;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background-color: #c9f0f0;
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  color: #0e7c86;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Buttons ===== */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: linear-gradient(135deg, #1fa2a2, #0e7c86);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #2ec4b6, #118a8c);
+  transform: translateY(-2px);
+}

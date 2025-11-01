@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ===== Reset & Page Layout ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  border: none;
+  background-color: #eaf6f6; /* soft teal */
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* removes scrollbars if any */
+}
+
+/* ===== Background Wrapper ===== */
+.login-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+      rgba(234, 246, 246, 0.85),
+      rgba(234, 246, 246, 0.85)
+    );
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ===== Background Image (blurred) ===== */
+.login-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./login-bg.jpg'); /* 👈 your image file in same folder */
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) brightness(0.9);
+  transform: scale(1.05); /* avoids blur edge clipping */
+  z-index: -1;
+}
+
+
+/* ===== Login Card ===== */
+.login-card {
+  background: #ffffff;
+  padding: 3rem 3.5rem;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  width: 420px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Brand Section */
+.brand-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0a3d3f;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* ===== Sub-text ===== */
+.welcome-text {
+  font-size: 0.95rem;
+  color: #118a8c;
+  margin-bottom: 1.8rem;
+}
+
+/* ===== Section Heading ===== */
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.2rem;
+  color: #0a3d3f;
+}
+
+/* ===== Form Layout ===== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 1.3rem;
+}
+
+.input-group label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #004d40;
+}
+
+/* ===== Inputs ===== */
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  background-color: #dff7f7;
+  border: none;
+  border-radius: 12px !important; /* force all corners rounded */
+  font-size: 1rem;
+  color: #045d5d;
+  transition: all 0.25s ease;
+  overflow: hidden; /* ensures border radius isn’t clipped */
+  display: block;   /* ensures full width and corner visibility */
+}
+
+.input-group input::placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.input-group input:focus {
+  outline: none;
+  background-color: #c9f0f0;
+  box-shadow: 0 0 0 2px rgba(31, 162, 162, 0.2);
+}
+
+/* ===== Button ===== */
+.btn {
+  background: linear-gradient(135deg, #1fa2a2, #0e7c86);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #2ec4b6, #118a8c);
+  transform: translateY(-2px);
+}
+
+/* ===== Messages & Links ===== */
+.alert-text {
+  margin-top: 1rem;
+  color: #d9534f;
+  font-size: 0.95rem;
+}
+
+.register-text {
+  margin-top: 1.8rem;
+  font-size: 0.95rem;
+  color: #004d40;
+}
+
+.register-text a {
+  color: #00838f;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}

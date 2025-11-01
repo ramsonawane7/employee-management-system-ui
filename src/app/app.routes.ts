@@ -7,7 +7,7 @@ import { DepartmentListComponent } from './modules/department/department-list/de
 import { DesignationListComponent } from './modules/designation/designation-list/designation-list.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'employees', component: EmployeeListComponent, canActivate: [authGuard] },
