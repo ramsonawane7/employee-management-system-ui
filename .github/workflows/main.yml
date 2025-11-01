@@ -45,7 +45,7 @@ jobs:
       - name: Start SSH Agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       # 7️⃣ Deploy Angular dist to Ubuntu server
       - name: Deploy Angular dist to EC2
