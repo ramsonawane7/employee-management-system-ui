@@ -27,18 +27,18 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employeeService.getAll().subscribe({
-      next: (data: any[]) => this.employeeCount = data?.length ?? 0,
+    this.employeeService.count().subscribe({
+      next: (count) => this.employeeCount = count,
       error: () => this.employeeCount = 0
     });
 
-    this.departmentService.getAll().subscribe({
-      next: (data: any[]) => this.departmentCount = data?.length ?? 0,
+    this.departmentService.count().subscribe({
+      next: (count) => this.departmentCount = count,
       error: () => this.departmentCount = 0
     });
 
-    this.designationService.getAll().subscribe({
-      next: (data: any[]) => this.designationCount = data?.length ?? 0,
+    this.designationService.count().subscribe({
+      next: (count) => this.designationCount = count,
       error: () => this.designationCount = 0
     });
   }
