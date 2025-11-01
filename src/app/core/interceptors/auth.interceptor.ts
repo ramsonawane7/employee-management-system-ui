@@ -1,47 +1,29 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { HttpInterceptorFn } from '@angular/common/http';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  private readonly tokenKey = 'jwt_token';
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = localStorage.getItem('jwt_token');
+  
+  console.log('AuthInterceptor called:', {
+    url: req.url,
+    hasToken: !!token,
+    token: token ? token.substring(0, 20) + '...' : 'null'
+  });
 
-  constructor(private router: Router) {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // Get token from localStorage
-    const token = localStorage.getItem(this.tokenKey);
-
-    // Clone the request and add the Authorization header if token exists
-    // Skip adding token for login request to avoid circular issues
-    if (token && !request.url.includes('/auth/login')) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-
-    // Handle the request and catch 401 errors
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        // If we get a 401 Unauthorized, clear token and redirect to login
-        if (error.status === 401 && !request.url.includes('/auth/login')) {
-          localStorage.removeItem(this.tokenKey);
-          localStorage.removeItem('login');
-          this.router.navigate(['/login']);
-        }
-        return throwError(() => error);
-      })
-    );
+  // Skip attaching token for login/auth endpoints (port 9090)
+  if (req.url.includes('/auth/login') || req.url.includes(':9090')) {
+    console.log('Skipping token for login/9090 endpoint');
+    return next(req);
   }
-}
 
+  // Attach token for EMS API calls (port 8585)
+  if (token && req.url.includes(':8585')) {
+    console.log('Adding token to 8585 request');
+    const cloned = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+    return next(cloned);
+  }
+
+  console.log('No token attached - conditions not met');
+  return next(req);
+};
