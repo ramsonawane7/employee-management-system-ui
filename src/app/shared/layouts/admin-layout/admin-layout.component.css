@@ -59,7 +59,10 @@
   border-radius: 6px;
   display: flex;
   align-items: center;
+  margin-left: -8px;
+  transition: margin-left 0.25s ease;
 }
+
 .sidebar-toggle i {
   color: #ffffff !important; 
   font-size: 1.8rem;
@@ -98,15 +101,24 @@
   background: none;
   border: none;
   color: white;
-  font-size: 1.25rem;
+  display: flex;                 /* add */
+  align-items: center;           /* add */
+  gap: 6px;                      /* add spacing between icon & text */
+  font-size: 0.95rem;            /* clean professional size */
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: background-color 0.2s;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  margin-left: 0.4rem;
+}
+.logout-btn i {
+  font-size: 1.1rem;            /* reduce icon size for alignment */
+  display: flex;
+  align-items: center;
 }
 
 .logout-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .logout-text {
