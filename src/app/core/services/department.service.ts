@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class DepartmentService {
-  private baseUrl = `${environment.apiBaseUrl}/departments`;
+  private baseUrl = `${environment.apiBaseUrl1}/departments`;
   constructor(private http: HttpClient) {}
   getAll() { return this.http.get<any[]>(this.baseUrl); }
   count() { return this.http.get(`${this.baseUrl}/count`, { responseType: 'text' }).pipe(map((res: string) => {

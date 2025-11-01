@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
-  private baseUrl = `${environment.apiBaseUrl}/employees`;
+  private baseUrl = `${environment.apiBaseUrl1}/employees`;
 
   constructor(private http: HttpClient) {}
 
