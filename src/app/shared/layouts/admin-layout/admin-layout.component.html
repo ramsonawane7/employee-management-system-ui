@@ -1,0 +1,53 @@
+<div class="admin-layout">
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+      <h1 class="app-title">Employee Management System</h1>
+    </div>
+    <div class="nav-right">
+      <div class="user-profile">
+        <i class="bi bi-person-circle"></i>
+        <span>{{ currentUser }}</span>
+        <button class="logout-btn" (click)="logout()" title="Logout">
+          <i class="bi bi-box-arrow-right me-1"></i>
+          <span class="logout-text">Logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/employees" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-people-fill"></i>
+        <span>Employees</span>
+      </a>
+      <a routerLink="/departments" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-building"></i>
+        <span>Departments</span>
+      </a>
+      <a routerLink="/designations" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-award"></i>
+        <span>Designations</span>
+      </a>
+      <div class="nav-divider"></div>
+      <a href="#" (click)="logout()" class="nav-item logout-item">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" [class.sidebar-collapsed]="sidebarCollapsed">
+    <router-outlet></router-outlet>
+  </main>
+</div>

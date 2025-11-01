@@ -3,11 +3,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
+import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, AdminLayoutComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

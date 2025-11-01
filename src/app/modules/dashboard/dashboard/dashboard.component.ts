@@ -34,25 +34,26 @@ export class DashboardComponent implements OnInit {
   fetchCounts() {
     this.loading = true;
     this.error = '';
-    // Fetch in parallel
-    // Force a direct call to ensure /employees/count is hit
-    const employeesCountUrl = `${environment.apiBaseUrl}/employees/count`;
-    this.http.get(employeesCountUrl, { responseType: 'text' }).subscribe({
-      next: (res) => {
-        try { console.debug('[Dashboard] employees/count raw:', res); } catch {}
-        const n = Number(res);
-        this.employeeCount = isNaN(n) ? 0 : n;
+    
+    this.employeeService.count().subscribe({
+      next: (c) => { 
+        this.employeeCount = c;
+        this.loading = false;
       },
-      error: () => { this.error = 'Failed to load counts.'; }
+      error: () => { 
+        this.error = 'Failed to load counts.';
+        this.loading = false;
+      }
     });
+    
     this.departmentService.count().subscribe({
-      next: (c) => { this.departmentCount = c as number; },
+      next: (c) => { this.departmentCount = c; },
       error: () => { this.error = 'Failed to load counts.'; }
     });
+    
     this.designationService.count().subscribe({
-      next: (c) => { this.designationCount = c as number; },
+      next: (c) => { this.designationCount = c; },
       error: () => { this.error = 'Failed to load counts.'; }
     });
-    this.loading = false;
   }
 }

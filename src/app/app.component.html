@@ -1,25 +1,2 @@
-<div class="d-flex" style="min-height:100vh;">
-  <nav *ngIf="showNavbar" class="sidebar-teal d-flex flex-column flex-shrink-0 p-3" style="width:270px;min-height:100vh;">
-    <div class="sidebar-logo mb-4 text-center">EMS</div>
-    <ul class="nav nav-pills flex-column mb-auto gap-1">
-      <li class="nav-item">
-        <a routerLink="/dashboard" routerLinkActive="active" class="side-link nav-link"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-      </li>
-      <li>
-        <a routerLink="/employees" routerLinkActive="active" class="side-link nav-link"><i class="bi bi-people-fill me-2"></i>Employees</a>
-      </li>
-      <li>
-        <a routerLink="/departments" routerLinkActive="active" class="side-link nav-link"><i class="bi bi-building me-2"></i>Departments</a>
-      </li>
-      <li>
-        <a routerLink="/designations" routerLinkActive="active" class="side-link nav-link"><i class="bi bi-award me-2"></i>Designations</a>
-      </li>
-      <li class="mt-auto">
-        <a href="#" (click)="logout()" class="side-link nav-link"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
-      </li>
-    </ul>
-  </nav>
-  <main class="flex-grow-1 p-4" style="background: #fff; min-height:100vh;">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+<app-admin-layout *ngIf="showNavbar"></app-admin-layout>
+<router-outlet *ngIf="!showNavbar"></router-outlet>
