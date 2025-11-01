@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService, LoginErrorResponse } from '../../../core/services/auth.service';
 import { ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -21,15 +21,18 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
+    this.message = ''; // Clear previous messages
     this.authService.login(this.username, this.password).subscribe({
-      next: (res) => {
-        this.message = res;
-        if (typeof res === 'string' && res.toLowerCase().includes('success')) {
-          localStorage.setItem('login', 'true');
+      next: (response) => {
+        // Login successful - token is already stored in AuthService
+        if (response.token) {
           this.router.navigate(['/dashboard']);
         }
       },
-      error: () => (this.message = 'Login failed. Try again.')
+      error: (error: LoginErrorResponse) => {
+        // Handle 401 Unauthorized error
+        this.message = error.error || 'Invalid Credentials!';
+      }
     });
   }
 }
