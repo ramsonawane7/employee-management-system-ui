@@ -28,5 +28,7 @@ export class DesignationService {
   update(desig: any) {
     return this.http.put(`${this.baseUrl}/${desig.desigId}`, { desigName: desig.desigName });
   }
-  delete(id: number) { return this.http.delete(`${this.baseUrl}/${id}`); }
+  delete(id: number) {
+  return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+}
 }

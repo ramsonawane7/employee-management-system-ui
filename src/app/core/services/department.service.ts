@@ -28,5 +28,7 @@ export class DepartmentService {
   update(dept: any) {
     return this.http.put(`${this.baseUrl}/${dept.deptId}`, { deptName: dept.deptName });
   }
-  delete(id: number) { return this.http.delete(`${this.baseUrl}/${id}`); }
+  delete(id: number) {
+  return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+}
 }

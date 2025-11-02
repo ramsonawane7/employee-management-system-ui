@@ -13,16 +13,31 @@ import { AuthService } from '../../../core/services/auth.service';
 export class AdminLayoutComponent implements OnInit {
   sidebarCollapsed = false;
   currentUser = 'Admin User';
+  showUserDropdown = false;
+  currentDateTime = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.updateDateTime();
+    setInterval(() => this.updateDateTime(), 1000);
+  }
+
+  updateDateTime() {
+    const now = new Date();
+    this.currentDateTime = now.toLocaleString();
+  }
+
+  toggleUserDropdown() {
+    this.showUserDropdown = !this.showUserDropdown;
+  }
 
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
   logout() {
+    this.showUserDropdown = false;
     this.authService.logout();
     this.router.navigate(['/login']);
   }

@@ -37,6 +37,7 @@ export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
   departments: Department[] = [];
   designations: Designation[] = [];
+  loading = false;
   // pagination & search state
   page = 0;
   size = 10;
@@ -62,6 +63,7 @@ export class EmployeeListComponent implements OnInit {
     this.loadDesignations();
   }
   loadEmployees() {
+    this.loading = true;
     const handler = (data: any) => {
       // Support both array and Spring Page response
       if (Array.isArray(data)) {
@@ -75,8 +77,13 @@ export class EmployeeListComponent implements OnInit {
         this.page = (data.number ?? this.page);
         this.size = (data.size ?? this.size);
       }
+      this.loading = false;
     };
-    const onError = () => { this.alertMsg = 'Failed to load employees.'; this.alertType = 'danger'; };
+    const onError = () => { 
+      this.alertMsg = 'Failed to load employees.'; 
+      this.alertType = 'danger';
+      this.loading = false;
+    };
     if (this.keyword && this.keyword.trim().length > 0) {
       this.empService.search(this.keyword.trim(), this.page, this.size).subscribe({ next: handler, error: onError });
     } else {
@@ -159,15 +166,18 @@ export class EmployeeListComponent implements OnInit {
     if (!this.deleteTarget) return;
     this.empService.delete(this.deleteTarget.empId as number).subscribe({
       next: () => {
-        this.alertMsg = 'Employee deleted.';
+        this.alertMsg = 'Employee deleted successfully.';
         this.alertType = 'success';
-        this.loadEmployees();
         this.deleteConfirmOpen = false;
         this.deleteTarget = null;
+        this.loadEmployees();
       },
-      error: () => {
+      error: (err) => {
+        console.error('Delete error:', err);
         this.alertMsg = 'Delete failed.';
         this.alertType = 'danger';
+        this.deleteConfirmOpen = false;
+        this.deleteTarget = null;
       }
     });
   }

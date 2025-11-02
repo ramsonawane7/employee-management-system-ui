@@ -4,7 +4,7 @@ import { EmployeeService } from '../../../core/services/employee.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { DesignationService } from '../../../core/services/designation.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',

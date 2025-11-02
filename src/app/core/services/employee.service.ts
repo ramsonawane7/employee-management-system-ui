@@ -21,7 +21,10 @@ export class EmployeeService {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
   create(emp: any) { return this.http.post(this.baseUrl, emp); }
-  delete(id: number) { return this.http.delete(`${this.baseUrl}/${id}`); }
+delete(id: number) {
+  return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+}
+
   update(emp: any) {
     return this.http.put(`${this.baseUrl}/${emp.empId}`, emp);
   }

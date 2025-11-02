@@ -17,6 +17,7 @@ interface Department {
 })
 export class DepartmentListComponent implements OnInit {
   departments: Department[] = [];
+  loading = false;
   modalOpen = false;
   deleteConfirmOpen = false;
   isEdit = false;
@@ -29,9 +30,17 @@ export class DepartmentListComponent implements OnInit {
   ngOnInit() { this.loadDepartments(); }
 
   loadDepartments() {
+    this.loading = true;
     this.deptService.getAll().subscribe({
-      next: (data: any) => { this.departments = data; },
-      error: () => { this.alertMsg = 'Failed to load departments.'; this.alertType = 'danger'; }
+      next: (data: any) => { 
+        this.departments = data;
+        this.loading = false;
+      },
+      error: () => { 
+        this.alertMsg = 'Failed to load departments.'; 
+        this.alertType = 'danger';
+        this.loading = false;
+      }
     });
   }
 
@@ -70,15 +79,18 @@ export class DepartmentListComponent implements OnInit {
     if (!this.deleteTarget) return;
     this.deptService.delete(this.deleteTarget.deptId as number).subscribe({
       next: () => {
-        this.alertMsg = 'Department deleted.';
+        this.alertMsg = 'Department deleted successfully.';
         this.alertType = 'success';
-        this.loadDepartments();
         this.deleteConfirmOpen = false;
         this.deleteTarget = null;
+        this.loadDepartments();
       },
-      error: () => {
+      error: (err) => {
+        console.error('Delete error:', err);
         this.alertMsg = 'Delete failed.';
         this.alertType = 'danger';
+        this.deleteConfirmOpen = false;
+        this.deleteTarget = null;
       }
     });
   }

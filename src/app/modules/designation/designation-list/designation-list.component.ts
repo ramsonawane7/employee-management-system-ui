@@ -17,6 +17,7 @@ interface Designation {
 })
 export class DesignationListComponent implements OnInit {
   designations: Designation[] = [];
+  loading = false;
   modalOpen = false;
   deleteConfirmOpen = false;
   isEdit = false;
@@ -29,9 +30,17 @@ export class DesignationListComponent implements OnInit {
   ngOnInit() { this.loadDesignations(); }
 
   loadDesignations() {
+    this.loading = true;
     this.designationService.getAll().subscribe({
-      next: (data: any) => { this.designations = data; },
-      error: () => { this.alertMsg = 'Failed to load designations.'; this.alertType = 'danger'; }
+      next: (data: any) => { 
+        this.designations = data;
+        this.loading = false;
+      },
+      error: () => { 
+        this.alertMsg = 'Failed to load designations.'; 
+        this.alertType = 'danger';
+        this.loading = false;
+      }
     });
   }
 
@@ -70,15 +79,18 @@ export class DesignationListComponent implements OnInit {
     if (!this.deleteTarget) return;
     this.designationService.delete(this.deleteTarget.desigId as number).subscribe({
       next: () => {
-        this.alertMsg = 'Designation deleted.';
+        this.alertMsg = 'Designation deleted successfully.';
         this.alertType = 'success';
-        this.loadDesignations();
         this.deleteConfirmOpen = false;
         this.deleteTarget = null;
+        this.loadDesignations();
       },
-      error: () => {
+      error: (err) => {
+        console.error('Delete error:', err);
         this.alertMsg = 'Delete failed.';
         this.alertType = 'danger';
+        this.deleteConfirmOpen = false;
+        this.deleteTarget = null;
       }
     });
   }
