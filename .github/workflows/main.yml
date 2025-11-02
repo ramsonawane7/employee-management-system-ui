@@ -38,7 +38,7 @@ jobs:
 
       #  Debug - Verify dist folder
       - name: Debug dist folder
-        run: ls -R ./dist || echo "⚠️ Dist folder missing!"
+        run: ls -R ./dist || echo " Dist folder missing!"
         working-directory: ./   # adjust if needed
 
       #  Start SSH Agent and add key
@@ -50,7 +50,7 @@ jobs:
       # Deploy Angular dist to Ubuntu server
       - name: Deploy Angular dist to EC2
         run: |
-          echo "🚀 Connecting to server and deploying files..."
+          echo " Connecting to server and deploying files..."
           ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no ubuntu@13.232.150.115 "
             sudo mkdir -p /services/frontend &&
             sudo rm -rf /services/frontend/*"
