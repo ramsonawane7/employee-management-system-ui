@@ -12,7 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class AdminLayoutComponent implements OnInit {
   sidebarCollapsed = false;
-  currentUser = 'Admin User';
+  currentUser = 'Admin';
   showUserDropdown = false;
   currentDateTime = '';
 
