@@ -10,47 +10,47 @@ permissions:
 
 jobs:
   build-and-deploy:
-    if: contains(github.event.head_commit.message, 'deploy-dev')   # ✅ Only run when commit message includes 'deploy-dev'
+    if: contains(github.event.head_commit.message, 'deploy-dev')   #  Only run when commit message includes 'deploy-dev'
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Node.js
+      #  Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      # 3️⃣ Install dependencies
+      #  Install dependencies
       - name: Install dependencies
         run: npm ci
         working-directory: ./   # adjust if your Angular project is in a subfolder
 
-      # 4️⃣ Build Angular app for production
+      #  Build Angular app for production
       - name: Build Angular app
         run: |
           npm run build -- --configuration production
         working-directory: ./   # adjust if needed
 
-      # 5️⃣ Debug - Verify dist folder
+      #  Debug - Verify dist folder
       - name: Debug dist folder
-        run: ls -R ./dist || echo "⚠️ Dist folder missing!"
+        run: ls -R ./dist || echo " Dist folder missing!"
         working-directory: ./   # adjust if needed
 
-      # 6️⃣ Start SSH Agent and add key
+      #  Start SSH Agent and add key
       - name: Start SSH Agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 7️⃣ Deploy Angular dist to Ubuntu server
+      # Deploy Angular dist to Ubuntu server
       - name: Deploy Angular dist to EC2
         run: |
-          echo "🚀 Connecting to server and deploying files..."
+          echo " Connecting to server and deploying files..."
           ssh -i ~/.ssh/github_actions -o StrictHostKeyChecking=no ubuntu@13.232.150.115 "
             sudo mkdir -p /services/frontend &&
             sudo rm -rf /services/frontend/*"
